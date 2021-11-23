@@ -10,8 +10,8 @@ let userService = new UserService(logger1)
 
 let user1 = new User(1,"Engin","Demiroğ","Ankara")
 let user2 = new User(2,"Baran","Gökçekli","Muğla")
-userService.add(user1)
-userService.add(user2)
+userService.addUser(user1)
+userService.addUser(user2)
 
 //console.log(userService.list())
 //console.log(userService.getById(2))
@@ -30,12 +30,12 @@ console.log("--------------------------")
 userService.load()
 
 
-let customerToAdd = new Customer(1,"Seda","Yılmaz","Ankara","fdgdfg");
-customerToAdd.type = "customer"
+let lolCustomer = new Customer(1, "Seda", "Yılmaz", "Ankara", "fdgdfg");
+lolCustomer.type = "customer"
 
-userService.add(customerToAdd)
-console.log(userService.customers)
-console.log(userService.employees)
+userService.addUser(lolCustomer)
+console.log(userService.getCustomers())
+console.log(userService.getEmployees())
 console.log(userService.errors)
 console.log(userService.getCustomersSorted())
 //22.00 Dersteyiz

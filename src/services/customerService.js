@@ -1,4 +1,4 @@
-import DataError from "../models/dataError";
+import DataError from "../models/dataError.js";
 
 export default class CustomerService {
 
@@ -18,7 +18,7 @@ export default class CustomerService {
     }
 
     getSorted() {
-        this.customers.sort((customer1, customer2) => {
+        return this.customers.sort((customer1, customer2) => {
             if (customer1.firstName > customer2.firstName) {
                 return 1
             } else if(customer1.firstName === customer2.firstName) {

@@ -1,24 +1,24 @@
-import { users } from "../data/users.js"
+import {users} from "../data/users.js"
 import DataError from "../models/dataError.js"
-import CustomerService from "./customerService";
-import EmployeeService from "./employeeService";
+import CustomerService from "./customerService.js";
+import EmployeeService from "./employeeService.js";
 
 export default class UserService {
 
     constructor(loggerService) {
-        this.errors = []
         this.loggerService = loggerService
         this.customerService = new CustomerService(this)
         this.employeeService = new EmployeeService(this)
+        this.errors = []
     }
 
     load() {
         for (const user of users) {
-            add(user)
+            this.addUser(user)
         }
     }
 
-    add(user) {
+    addUser(user) {
         if (!user["type"]) {
             this.errors.push(
                 new DataError("This user can not be added. Object doesn't have type field", user))
@@ -63,4 +63,11 @@ export default class UserService {
         return this.employeeService.getSorted()
     }
 
+    getEmployees() {
+        return this.employeeService.employees;
+    }
+
+    getCustomers() {
+        return this.customerService.customers;
+    }
 }
