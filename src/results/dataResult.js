@@ -1,4 +1,4 @@
-import Result from "./result";
+import Result from "./result.js";
 
 export default class DataResult extends Result {
     constructor(success, message, data){
