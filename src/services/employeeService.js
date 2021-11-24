@@ -1,16 +1,16 @@
-import DataError from "../models/dataError.js";
+import DataError from "../errors/dataError.js";
 
 export default class EmployeeService {
 
     constructor(userService) {
-        this.employees = []
         this.userService = userService
+        this.employees = []
+        this.requiredFields = ["id", "firstName", "lastName", "age", "city", "salary"]
     }
 
     isValidEmployee(user) {
-        let requiredFields = ["id", "firstName", "lastName", "age", "city", "salary"]
         let isValid = true
-        for (const field of requiredFields) {
+        for (const field of this.requiredFields) {
             if (!user[field]) {
                 isValid = false
                 this.userService.push(

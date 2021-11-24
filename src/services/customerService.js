@@ -1,10 +1,11 @@
-import DataError from "../models/dataError.js";
+import DataError from "../errors/dataError.js";
 
 export default class CustomerService {
 
     constructor(userService) {
         this.userService = userService
         this.customers = []
+        this.requiredFields = ["id", "firstName", "lastName", "age", "city"]
     }
 
     load(customer) {
@@ -17,24 +18,9 @@ export default class CustomerService {
         return this.customers.find( u=> u.id === id)
     }
 
-    getSorted() {
-        return this.customers.sort((customer1, customer2) => {
-            if (customer1.firstName > customer2.firstName) {
-                return 1
-            } else if(customer1.firstName === customer2.firstName) {
-                return 0
-            } else {
-                return -1
-            }
-        })
-    }
-
-
-    //formik-yup
     isValidCustomer(user) {
-        let requiredFields = ["id", "firstName", "lastName", "age", "city"]
         let hasErrors = false
-        for (const field of requiredFields) {
+        for (const field of this.requiredFields) {
             if (!user[field]) {
                 hasErrors = true
                 this.userService.errors.push(
@@ -49,5 +35,19 @@ export default class CustomerService {
 
         return hasErrors
     }
+
+
+    getSorted() {
+        return this.customers.sort((customer1, customer2) => {
+            if (customer1.firstName > customer2.firstName) {
+                return 1
+            } else if(customer1.firstName === customer2.firstName) {
+                return 0
+            } else {
+                return -1
+            }
+        })
+    }
+    //formik-yup
 
 }
