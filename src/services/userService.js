@@ -1,5 +1,5 @@
 import {users} from "../data/users.js"
-import DataError from "../errors/dataError.js"
+import DataResult from "../results/dataResult.js"
 import CustomerService from "./customerService.js";
 import EmployeeService from "./employeeService.js";
 
@@ -8,9 +8,9 @@ export default class UserService {
     constructor(loggerService) {
         this.loggerService = loggerService
         this.errors = []
+        this.serviceMap = new Map()
         this.customerService = new CustomerService(this)
         this.employeeService = new EmployeeService(this)
-        this.serviceMap = new Map()
         this.serviceMap.set("customer", this.customerService)
         this.serviceMap.set("employee", this.employeeService)
     }
@@ -24,13 +24,13 @@ export default class UserService {
     addUser(user) {
         if (!user["type"]) {
             this.errors.push(
-                new DataError("This user can not be added. Object doesn't have type field", user))
+                new DataResult("This user can not be added. Object doesn't have type field", user))
             return;
         }
         const service = this.serviceMap.get(user.type);
         if (!service) {
             this.errors.push(
-                new DataError("This user can not be added. Wrong user type", user))
+                new DataResult("This user can not be added. Wrong user type", user))
             return;
         }
         service.load(user)

@@ -1,4 +1,4 @@
-import DataError from "../errors/dataError.js";
+import DataResult from "../results/dataResult.js";
 
 export default class EmployeeService {
 
@@ -14,13 +14,13 @@ export default class EmployeeService {
             if (!user[field]) {
                 isValid = false
                 this.userService.push(
-                    new DataError(`Validation problem. ${field} is required`, user))
+                    new DataResult(`Validation problem. ${field} is required`, user))
             }
         }
 
         if (Number.isNaN(user.age)) {
             isValid = false
-            this.userService.push(new DataError(`Validation problem. ${user.age} is not a number`, user))
+            this.userService.push(new DataResult(`Validation problem. ${user.age} is not a number`, user))
         }
         return isValid
     }
